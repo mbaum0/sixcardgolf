@@ -14,13 +14,14 @@ class DeckModel: ObservableObject {
                                       "c": "clubs",
                                       "d": "diamonds",
                                       "h": "hearts"]
+    
     var cardback = "back"
     
-    init(){
+    init(cardValues: [Int:Int]){
         for suit in suits.keys {
-            for val in 1...13 {
-                let cardimg = suits[suit]! + "_" + String(val)
-                let newCard = Card(id:UUID(), suit:suit, value:val, faceup:false, faceimg: cardimg, backimg: cardback, currentimg: cardback)
+            for rank in 1...13 {
+                let cardimg = suits[suit]! + "_" + String(rank)
+                let newCard = Card(id:UUID(), suit:suit, rank:rank, value:cardValues[rank]!, faceup:false, faceimg: cardimg, backimg: cardback, currentimg: cardback)
                 cards.append(newCard)
             }
         }
@@ -36,5 +37,13 @@ class DeckModel: ObservableObject {
     
     func returnCard(card:Card) {
         self.cards.append(card)
+    }
+    
+    func returnCards(retCards:[Card]) {
+        for card in retCards {
+            var tmpcard = card
+            tmpcard.setFaceDown()
+            self.cards.append(tmpcard)
+        }
     }
 }

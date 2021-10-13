@@ -10,6 +10,7 @@ import Foundation
 struct Card: Identifiable {
     var id:UUID
     var suit:Character
+    var rank:Int
     var value:Int
     var faceup:Bool
     var faceimg:String
@@ -19,5 +20,15 @@ struct Card: Identifiable {
     mutating func flip() {
         self.faceup = !self.faceup
         self.currentimg = self.faceup ? self.faceimg : self.backimg
+    }
+    
+    mutating func setFaceDown() {
+        self.faceup = false
+        self.currentimg = self.backimg
+    }
+    
+    mutating func setFaceUp() {
+        self.faceup = true
+        self.currentimg = self.faceimg
     }
 }
